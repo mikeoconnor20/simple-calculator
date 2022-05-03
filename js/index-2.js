@@ -1,27 +1,26 @@
 let display = document.getElementById("display")
 
-let buttons = Array.from(document.getElementsByClassName('buttons'))
+// update display
+document.querySelectorAll('.buttons').forEach(item => {
+    item.addEventListener('click', event => {
+      var numberClicked = event.target.innerText
+      display.innerText += numberClicked
+    })
+  })
 
-buttons.map(button => {
-    button.addEventListener('click', (e) => {
-        switch(e.target.innerText) {
-            case 'C':
-                display.innerText = '';
-                break;
-            case '←':
-                if(display.innerText) {
-                    display.innerText = display.innerText.slice(0,-1)
-                }
-                break;
-            case '=':
-                try {
-                    display.innerText = eval(display.innerText)
-                } catch {
-                    display.innerText = "error";
-                }
-                break;
-            default:
-                display.innerText += e.target.innerText
-        }
-    });
-} );
+//   clear
+document.getElementById("clear").addEventListener("click", function clear(e) {
+    display.innerText = ""
+})
+
+// equals
+document.getElementById("equalsButton").addEventListener("click", function problemEquals(e) {
+    const answer = eval(display.innerText.slice(0, length-1));
+    console.log(answer);
+    display.innerText = answer;
+} )
+
+// backspace *** i did length-2 to delete the arrow and the most recent input.
+document.getElementById("backspace").addEventListener("click", function backspace(e) {
+    display.innerText = display.innerText.slice(0, length-2)
+})
